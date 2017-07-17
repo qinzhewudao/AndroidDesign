@@ -118,4 +118,5 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.BaseAdapter> {
             tv.setText(model.getContent());
         }
     }
-}
+
+    }

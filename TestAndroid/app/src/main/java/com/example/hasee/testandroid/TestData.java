@@ -4,13 +4,37 @@ package com.example.hasee.testandroid;
  * Created by hasee on 2017/7/13.
  */
 
+import android.util.Log;
+
 import com.example.hasee.testandroid.model.ChatModel;
 import com.example.hasee.testandroid.model.ItemModel;
-
+import com.example.hasee.testandroid.SQLite.ChatHelper;
 import java.util.ArrayList;
 public class TestData {
-    public static ArrayList<ItemModel> getTestAdData() {
+
+
+    public static ArrayList<ItemModel> getTestAdData(ArrayList<ChatModel> chat) {
+
         ArrayList<ItemModel> models = new ArrayList<>();
+
+        for(int i=0;i<chat.size();++i)
+        {
+            ChatModel model = new ChatModel();
+            model.setContent(chat.get(i).content);
+            model.setIcon(chat.get(i).icon);
+            Log.e("sy","model name:"+model.type);
+            Log.e("sy","model icon:"+model.icon);
+            if(model.icon.equals("http://pic.qqtn.com/up/2017-6/2017062711010343002.jpg"))
+            {
+
+                models.add(new ItemModel(ItemModel.CHAT_A, model));
+            }
+            else
+            {
+                models.add(new ItemModel(ItemModel.CHAT_B, model));
+            }
+        }
+        /*
         ChatModel model = new ChatModel();
         model.setContent("你好？我们交个朋友吧！");
         model.setIcon("http://pic.qqtn.com/up/2017-6/2017062711010343002.jpg");
@@ -34,8 +58,7 @@ public class TestData {
         ChatModel model6 = new ChatModel();
         model6.setContent("你是妹子，卧槽，我怎么没看出来？");
         model6.setIcon("http://pic.qqtn.com/up/2017-6/2017062711010489403.jpg");
-        models.add(new ItemModel(ItemModel.CHAT_B, model6));
+        models.add(new ItemModel(ItemModel.CHAT_B, model6));\*/
         return models;
     }
-
 }

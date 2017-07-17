@@ -57,4 +57,35 @@
         android:text="login"
         android:textColor="@color/red"
         android:layout_gravity="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/startMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开启音乐播放服务"/>
+        <Button
+            android:id="@+id/stopMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="停止音乐播放服务"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/bindMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绑定音乐播放服务"/>
+        <Button
+            android:id="@+id/unbindMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="解除 ——绑定音乐播放服务"/>
+    </LinearLayout>
+
 </LinearLayout>

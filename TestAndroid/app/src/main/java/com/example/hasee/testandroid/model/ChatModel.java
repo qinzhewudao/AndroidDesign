@@ -6,9 +6,9 @@ import java.io.Serializable;
  * Created by hasee on 2017/7/13.
  */
 public class ChatModel implements Serializable{
-    private String icon="";
-    private String content="";
-    private String type="";
+    public String icon="";
+    public String content="";
+    public String type="";
 
     public String getIcon() {
         return icon;

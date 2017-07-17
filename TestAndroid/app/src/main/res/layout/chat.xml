@@ -6,7 +6,26 @@ android:layout_height="match_parent"
 android:background="#EEEEEE"
 android:orientation="vertical"
 tools:context="com.example.hasee.testandroid.Chat">
-
+<TextView
+    android:id="@+id/chatreturn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_send"
+    android:gravity="center"
+    android:padding="6dp"
+    android:text="返回"
+    android:textColor="#FFFFFF"
+    android:textSize="10sp"/>
+    <TextView
+        android:id="@+id/testbroadcast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_send"
+        android:gravity="center"
+        android:padding="6dp"
+        android:text="发送广播"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"/>
 <android.support.v7.widget.RecyclerView
     android:id="@+id/recylerView"
     android:layout_width="match_parent"

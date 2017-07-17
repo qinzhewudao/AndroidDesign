@@ -1,30 +1,49 @@
 package com.example.hasee.testandroid;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
+import android.widget.Button;
+
+import android.widget.TextView;
+import android.widget.Toast;
+
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.text.LoginFilter;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
-import android.os.CountDownTimer;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.view.MenuItem;
-import android.util.Log;
 import android.graphics.drawable.Drawable;
-import android.widget.Toast;
+import com.example.hasee.testandroid.adapter.ContactAdapter;
+import com.example.hasee.testandroid.model.ContactModel;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +51,32 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
 
     AppCompatActivity a = this;
+    Myhandler myhandler;
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private void showNotificationWithAction(){
+        NotificationManager notifyManager=(NotificationManager )this.getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent intent=new Intent(this,Main2Activity.class);
+        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        Notification.Builder builder=new Notification.Builder(this)
+                .setContentTitle("测试标题")//设置通知栏标题
+                .setContentText("测试内容") //设置通知栏显示内容
+                .setTicker("测试通知来啦") //通知首次出现在通知栏，带上升动画效果的
+                .setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示，一般是系统获取到的时间
+                .setAutoCancel(true)//设置这个标志当用户单击面板就可以让通知将自动取消
+                .setOngoing(false)//ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
+                .setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合
+                //Notification.DEFAULT_ALL
+                //Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
+                .setSmallIcon(R.drawable.man1);//设置通知小ICON
+        notifyManager.notify(2,builder.build());
+        builder.setContentIntent(pendingIntent);
+        Notification notify=builder.build();
+        notify.defaults=Notification.DEFAULT_SOUND;
+        notify.flags|=Notification.FLAG_SHOW_LIGHTS;
+        notify.flags|=Notification.FLAG_AUTO_CANCEL;
+        //MainActivity.notify(1,notifyManager);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +103,10 @@ public class MainActivity extends AppCompatActivity {
         String password = intent.getStringExtra("password");
         //根据控件的ID得到响应的控件对象
         TextView showaccount = (TextView)findViewById(R.id.showaccount);
-        TextView showpassword = (TextView)findViewById(R.id.showpassword);
         //为控件设置Text值
         Log.i("sy",account+" "+password);
 
         showaccount.setText("account:"+account);
-        showpassword.setText("password:"+password);
 
         Button submit= (Button) findViewById(R.id.button);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +143,38 @@ public class MainActivity extends AppCompatActivity {
         layout1.addView(text1);    //动态添加各种控件
 
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //listview
+        ListView mListView   =   (ListView)findViewById(R.id.lvcontact);
+
+        Bitmap bitmap = getHttpBitmap("http://pic.qqtn.com/up/2017-6/2017062711010343002.jpg");
+        Bitmap bitmap1 = getHttpBitmap("http://pic.qqtn.com/up/2017-6/2017062711010343002.jpg");
+        ContactModel bean1   =   new ContactModel();     //创建ContactModel对象
+        bean1.setMsgcount("7");          //设置type类型
+        bean1.setContactimage(bitmap);        //设置图片
+        bean1.setContent("hello peter");                    //设置文本
+        //以下同
+
+        ContactModel bean2   =   new ContactModel();     //创建ContactModel对象
+        bean2.setMsgcount("3");          //设置type类型
+        bean2.setContactimage(bitmap1);        //设置图片
+        bean2.setContent("hello petersburg");                    //设置文本
+
+        ContactModel bean3   =   new ContactModel();     //创建ContactModel对象
+        bean3.setMsgcount("5");          //设置type类型
+        bean3.setContactimage(bitmap1);        //设置图片
+        bean3.setContent("hello peter's");                    //设置文本
+
+        //创建ArrayList<ContactModel>类型的data
+        List<ContactModel> data = new ArrayList<>();
+        //添加数据，类型为ContactModel
+        data.add(bean1);
+        data.add(bean2);
+        data.add(bean3);
+        //为ListView设置适配器
+        mListView.setAdapter(new ContactAdapter(this , data));
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,6 +182,81 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+
+        myhandler = new Myhandler();
+        final MyTHread myTHread = new MyTHread();
+
+        Button testhandler = (Button) findViewById(R.id.testhanlder);
+
+        testhandler.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                // 启动一个子线程
+                showNotificationWithAction();
+                new Thread(myTHread).start();  //一定要在这里面启动！
+            }
+        });
+
+    }
+
+    public class Myhandler extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Button testhandler = (Button) findViewById(R.id.testhanlder);
+            testhandler.setTextColor(0xFFFFFFFF);
+        }
+    }
+
+    public class MyTHread implements Runnable{
+        @Override
+        public void run() {
+            try{
+                Button testhandler = (Button) findViewById(R.id.testhanlder);
+                testhandler.setTextColor(0xFFFFFFFF);
+            }catch (Exception e)
+            {
+                Log.e("sy","其余线程修改UI线程的view"+e);
+            }
+
+            Message msg = new Message();
+
+            MainActivity.this.myhandler.sendMessage(msg);
+
+        }
+    }
+
+    public static Bitmap getHttpBitmap(String url)
+    {
+        URL myFileURL;
+        Bitmap bitmap=null;
+        try{
+            myFileURL = new URL(url);
+            //获得连接
+            HttpURLConnection conn=(HttpURLConnection)myFileURL.openConnection();
+            //设置超时时间为6000毫秒，conn.setConnectionTiem(0);表示没有时间限制
+            conn.setConnectTimeout(6000);
+            //连接设置获得数据流
+            conn.setDoInput(true);
+            //不使用缓存
+            conn.setUseCaches(false);
+            //这句可有可无，没有影响
+            conn.connect();
+            //得到数据流
+            InputStream is = conn.getInputStream();
+            //解析得到图片
+            bitmap = BitmapFactory.decodeStream(is);
+            //关闭数据流
+            is.close();
+        }catch(Exception e){
+            Log.e("sy","bitmap"+e);
+        }
+
+        return bitmap;
 
     }
 
@@ -227,6 +376,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();//必须要加super调用父类的销毁程序，不然程序会崩溃
         Log.e("sy","i am dead");
     }
-
 
 }

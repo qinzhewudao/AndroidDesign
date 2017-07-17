@@ -73,7 +73,7 @@
             android:id="@+id/layout1"
             android:layout_width="368dp"
             android:orientation="horizontal"
-            android:layout_height="70dp"></LinearLayout>
+            android:layout_height="70dp"/>
         <LinearLayout
             android:id="@+id/chat1"
             android:addStatesFromChildren="true"
@@ -147,27 +147,13 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <LinearLayout
+        <ListView
+            android:id="@+id/lvcontact"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="96dp"
-                android:layout_height="50dp"
-                android:background="@drawable/man2"/>
-            <TextView
-                android:id="@+id/showpassword"
-                android:layout_marginLeft="10dip"
-                android:layout_gravity="center"
-                android:background="@drawable/shape_corner"
-                android:textColor="@color/antiquewhite"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                />
-        </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,27 +163,7 @@
                 android:layout_gravity="center"
                 android:layout_width="96dp"
                 android:layout_height="50dp"
-                android:background="@drawable/man3"/>
-            <TextView
-                android:layout_marginLeft="10dip"
-                android:layout_gravity="center"
-                android:background="@drawable/shape_corner"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:text="hello peter!"
                 android:gravity="center"
-                android:textSize="20sp"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="96dp"
-                android:layout_height="50dp"
                 android:text="Account:"/>
             <EditText
                 android:layout_marginLeft="10dip"
@@ -216,6 +182,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit"
+            android:textColor="@color/red"
+            android:layout_gravity="center" />
+        <Button
+            android:id="@+id/testhanlder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TestHandler"
             android:textColor="@color/red"
             android:layout_gravity="center" />
 
