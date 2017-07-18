@@ -27,11 +27,11 @@ public class TestData {
             if(model.icon.equals("http://pic.qqtn.com/up/2017-6/2017062711010343002.jpg"))
             {
 
-                models.add(new ItemModel(ItemModel.CHAT_A, model));
+                models.add(new ItemModel(ItemModel.CHAT_B, model));
             }
             else
             {
-                models.add(new ItemModel(ItemModel.CHAT_B, model));
+                models.add(new ItemModel(ItemModel.CHAT_A, model));
             }
         }
         /*

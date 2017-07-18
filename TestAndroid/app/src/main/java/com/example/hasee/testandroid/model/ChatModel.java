@@ -1,6 +1,7 @@
 package com.example.hasee.testandroid.model;
 
 import java.io.Serializable;
+import java.net.HttpURLConnection;
 
 /**
  * Created by hasee on 2017/7/13.
@@ -17,6 +18,7 @@ public class ChatModel implements Serializable{
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
 
     public String getContent() {
         return content;
