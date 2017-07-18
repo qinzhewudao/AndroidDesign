@@ -1,12 +1,16 @@
 package com.example.hasee.testandroid;
 
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,7 +26,7 @@ import java.io.BufferedReader;
 
 
 
-public class TestJson extends AppCompatActivity {
+public class TestJson extends Fragment{
     TextView txtTextView;
     Button btn;
     String result = "";
@@ -31,16 +35,25 @@ public class TestJson extends AppCompatActivity {
     private ProgressDialog dialog ;
     Handler handler;
 
+    public TestJson(ProgressDialog dialog) {
+        this.dialog = dialog;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_json);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_test_json, null);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         //添加弹出的对话框
-        dialog = new ProgressDialog(this) ;
         dialog.setTitle("提示") ;
         dialog.setMessage("正在获取天气，请稍后···") ;
-        btn = (Button) findViewById(R.id.btn);
-        txtTextView = (TextView) findViewById(R.id.txt);
+        btn = (Button) view.findViewById(R.id.btn);
+        txtTextView = (TextView) view.findViewById(R.id.txt);
 
         btn.setOnClickListener(new OnClickListener() {
 

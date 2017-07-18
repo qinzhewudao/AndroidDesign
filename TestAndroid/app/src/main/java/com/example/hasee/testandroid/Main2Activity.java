@@ -47,7 +47,6 @@ public class Main2Activity extends AppCompatActivity {
             Log.e("sy","has error"+ " "+e);
 
         }
-
         //sharedprefenrence练习
         File file= new File("/data/data/"+getPackageName().toString()+"/shared_prefs","account.xml");
 
@@ -61,11 +60,10 @@ public class Main2Activity extends AppCompatActivity {
 
         }
 
-
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View z) {
-                Intent intent = new Intent(a,MainActivity.class);
+                Intent intent = new Intent(a,new_main.class);
 
                 SharedPreferences share=getSharedPreferences("account",Context.MODE_PRIVATE);
                 int i=share.getInt("i",0);
